@@ -36,6 +36,12 @@ const server = await createLibp2p({
   }
 })
 
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');  // to be replaced
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+  next();
+});
+
 app.get('/multiaddress', (req, res) => {
     res.json({
       multiaddress: server.getMultiaddrs().map((ma) => ma.toString())
